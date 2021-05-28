@@ -16,31 +16,29 @@ namespace BookingMVC
     {
         public static void Main(string[] args)
         {
-            //CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
 
-            var host = CreateHostBuilder(args).Build();
+            // For applying database migrations
+            //var host = CreateHostBuilder(args).Build().Run;
+            //using var scope = host.Services.CreateScope();
+            //var services = scope.ServiceProvider;
+            //try
+            //{
+            //    var dbContext = services.GetRequiredService<DataContext>();
+            //    if (dbContext.Database.IsSqlServer())
+            //    {
+            //        dbContext.Database.Migrate();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-            using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
+            //    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
 
-            try
-            {
-                var dbContext = services.GetRequiredService<DataContext>();
-                if (dbContext.Database.IsSqlServer())
-                {
-                    dbContext.Database.Migrate();
-                }
-            }
-            catch (Exception ex)
-            {
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-
-                logger.LogError(ex, "An error occurred while migrating or seeding the database.");
-
-                throw;
-            }
-
-            host.Run();
+            //    throw;
+            //}
+            //host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
