@@ -1,0 +1,110 @@
+@model Booking.Models.ReservedDates
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>ReservedDates</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <select asp-for="Type" class="form-control"></select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReserveDateStart" class="control-label"></label>
+                <input asp-for="ReserveDateStart" class="form-control" />
+                <span asp-validation-for="ReserveDateStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReserveDateEnd" class="control-label"></label>
+                <input asp-for="ReserveDateEnd" class="form-control" />
+                <span asp-validation-for="ReserveDateEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReserveDateStartTicks" class="control-label"></label>
+                <input asp-for="ReserveDateStartTicks" class="form-control" />
+                <span asp-validation-for="ReserveDateStartTicks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReserveDateEndTicks" class="control-label"></label>
+                <input asp-for="ReserveDateEndTicks" class="form-control" />
+                <span asp-validation-for="ReserveDateEndTicks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Count" class="control-label"></label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsCanceled" class="control-label"></label>
+                <input asp-for="IsCanceled" class="form-control" />
+                <span asp-validation-for="IsCanceled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsFinal" class="control-label"></label>
+                <input asp-for="IsFinal" class="form-control" />
+                <span asp-validation-for="IsFinal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDate" class="control-label"></label>
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifyDate" class="control-label"></label>
+                <input asp-for="ModifyDate" class="form-control" />
+                <span asp-validation-for="ModifyDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeleteDate" class="control-label"></label>
+                <input asp-for="DeleteDate" class="form-control" />
+                <span asp-validation-for="DeleteDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDateTicks" class="control-label"></label>
+                <input asp-for="CreateDateTicks" class="form-control" />
+                <span asp-validation-for="CreateDateTicks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifyDateTicks" class="control-label"></label>
+                <input asp-for="ModifyDateTicks" class="form-control" />
+                <span asp-validation-for="ModifyDateTicks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeleteDateTicks" class="control-label"></label>
+                <input asp-for="DeleteDateTicks" class="form-control" />
+                <span asp-validation-for="DeleteDateTicks" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

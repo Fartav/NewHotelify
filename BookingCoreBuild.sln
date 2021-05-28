@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking", "Booking\Booking.csproj", "{E61A53EE-4410-420E-AFB6-D89F5F942038}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Debug|x64.Build.0 = Debug|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Debug|x86.Build.0 = Debug|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Release|x64.ActiveCfg = Release|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Release|x64.Build.0 = Release|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Release|x86.ActiveCfg = Release|Any CPU
+		{E61A53EE-4410-420E-AFB6-D89F5F942038}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FACDB865-FF5C-403A-A131-FC60C96B68BD}
+	EndGlobalSection
+EndGlobal

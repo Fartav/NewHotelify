@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Grudark\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Grudark\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_BookingCore.-1670629712.00" t="ExcludeRecursive" />
+    <e p="H:\Soroosh\Projects\dotnet\fartavbookingwebsite\Booking-core" t="IncludeFlat">
+      <e p="Booking" t="IncludeRecursive">
+        <e p=".gitignore" t="Include" />
+        <e p=".gitkeep" t="Include" />
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Booking.csproj" t="IncludeRecursive" />
+        <e p="EventManager.cs" t="Include" />
+        <e p="Exceptions" t="Include">
+          <e p="BookingExceptions.cs" t="Include" />
+        </e>
+        <e p="HostManager.cs" t="Include" />
+        <e p="Migrations" t="Include">
+          <e p="20201031120917_InitialCreate.cs" t="Include" />
+          <e p="20201031120917_InitialCreate.Designer.cs" t="Include" />
+          <e p="DataContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="AvailableDates.cs" t="Include" />
+          <e p="BaseModel.cs" t="Include" />
+          <e p="ClosedDates.cs" t="Include" />
+          <e p="DataContext.cs" t="Include" />
+          <e p="Entities.cs" t="Include" />
+          <e p="EntityType.cs" t="Include" />
+          <e p="Event.cs" t="Include" />
+          <e p="EventClosedTimes.cs" t="Include" />
+          <e p="EventExtension.cs" t="Include" />
+          <e p="Host.cs" t="Include" />
+          <e p="HostExtension.cs" t="Include" />
+          <e p="HotelClass.cs" t="Include" />
+          <e p="MultiMedia.cs" t="Include" />
+          <e p="MultiMediaType.cs" t="Include" />
+          <e p="MultiMediaUsage.cs" t="Include" />
+          <e p="ReservedDates.cs" t="Include" />
+          <e p="Residence.cs" t="Include" />
+          <e p="ResidenceRoom.cs" t="Include" />
+          <e p="ResidenceType.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Booking.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="packages" t="Include">
+          <e p="DotLiquid.2.0.361" t="Include">
+            <e p=".signature.p7s" t="Include" />
+            <e p="DotLiquid.2.0.361.nupkg" t="Include" />
+            <e p="lib" t="Include">
+              <e p="net45" t="Include">
+                <e p="DotLiquid.dll" t="Include" />
+                <e p="DotLiquid.xml" t="Include" />
+                <e p="it" t="Include">
+                  <e p="DotLiquid.resources.dll" t="Include" />
+                </e>
+              </e>
+              <e p="netstandard1.3" t="Include">
+                <e p="DotLiquid.dll" t="Include" />
+                <e p="DotLiquid.xml" t="Include" />
+                <e p="it" t="Include">
+                  <e p="DotLiquid.resources.dll" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="LICENSE.txt" t="Include" />
+            <e p="readme.txt" t="Include" />
+          </e>
+          <e p="EntityFramework.6.4.4" t="Include">
+            <e p=".signature.p7s" t="Include" />
+            <e p="build" t="Include">
+              <e p="EntityFramework.DefaultItems.props" t="Include" />
+              <e p="EntityFramework.props" t="Include" />
+              <e p="EntityFramework.targets" t="Include" />
+              <e p="Microsoft.Data.Entity.Build.Tasks.dll" t="Include" />
+              <e p="netcoreapp3.0" t="Include">
+                <e p="EntityFramework.props" t="Include" />
+                <e p="EntityFramework.targets" t="Include" />
+              </e>
+            </e>
+            <e p="buildTransitive" t="Include">
+              <e p="EntityFramework.props" t="Include" />
+              <e p="EntityFramework.targets" t="Include" />
+              <e p="netcoreapp3.0" t="Include">
+                <e p="EntityFramework.props" t="Include" />
+                <e p="EntityFramework.targets" t="Include" />
+              </e>
+            </e>
+            <e p="content" t="Include">
+              <e p="net40" t="Include">
+                <e p="App.config.install.xdt" t="Include" />
+                <e p="App.config.transform" t="Include" />
+                <e p="Web.config.install.xdt" t="Include" />
+                <e p="Web.config.transform" t="Include" />
+              </e>
+            </e>
+            <e p="EntityFramework.6.4.4.nupkg" t="Include" />
+            <e p="Icon.png" t="Include" />
+            <e p="lib" t="Include">
+              <e p="net40" t="Include">
+                <e p="EntityFramework.dll" t="Include" />
+                <e p="EntityFramework.SqlServer.dll" t="Include" />
+                <e p="EntityFramework.SqlServer.xml" t="Include" />
+                <e p="EntityFramework.xml" t="Include" />
+              </e>
+              <e p="net45" t="Include">
+                <e p="EntityFramework.dll" t="Include" />
+                <e p="EntityFramework.SqlServer.dll" t="Include" />
+                <e p="EntityFramework.SqlServer.xml" t="Include" />
+                <e p="EntityFramework.xml" t="Include" />
+              </e>
+              <e p="netstandard2.1" t="Include">
+                <e p="EntityFramework.dll" t="Include" />
+                <e p="EntityFramework.SqlServer.dll" t="Include" />
+                <e p="EntityFramework.SqlServer.xml" t="Include" />
+                <e p="EntityFramework.xml" t="Include" />
+              </e>
+            </e>
+            <e p="tools" t="Include">
+              <e p="about_EntityFramework6.help.txt" t="Include" />
+              <e p="EntityFramework6.PS2.psd1" t="Include" />
+              <e p="EntityFramework6.PS2.psm1" t="Include" />
+              <e p="EntityFramework6.psd1" t="Include" />
+              <e p="EntityFramework6.psm1" t="Include" />
+              <e p="init.ps1" t="Include" />
+              <e p="install.ps1" t="Include" />
+              <e p="net40" t="Include">
+                <e p="any" t="Include">
+                  <e p="ef6.exe" t="Include" />
+                  <e p="ef6.pdb" t="Include" />
+                </e>
+                <e p="win-x86" t="Include">
+                  <e p="ef6.exe" t="Include" />
+                  <e p="ef6.pdb" t="Include" />
+                </e>
+              </e>
+              <e p="net45" t="Include">
+                <e p="any" t="Include">
+                  <e p="ef6.exe" t="Include" />
+                  <e p="ef6.pdb" t="Include" />
+                </e>
+                <e p="win-x86" t="Include">
+                  <e p="ef6.exe" t="Include" />
+                  <e p="ef6.pdb" t="Include" />
+                </e>
+              </e>
+              <e p="netcoreapp3.0" t="Include">
+                <e p="any" t="Include">
+                  <e p="ef6.dll" t="Include" />
+                  <e p="ef6.pdb" t="Include" />
+                  <e p="ef6.runtimeconfig.json" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="ReserveManager.cs" t="Include" />
+        <e p="UI" t="Include">
+          <e p="Components" t="Include">
+            <e p="PageListNav.cs" t="Include" />
+          </e>
+          <e p="Pages" t="Include">
+            <e p="Default.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Utilites" t="Include">
+          <e p="Enums.cs" t="Include" />
+        </e>
+      </e>
+      <e p="BookingCore.sln" t="IncludeFlat" />
+      <e p="BookingMVC" t="IncludeRecursive">
+        <e p=".gitignore" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BookingMVC.csproj" t="IncludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="HomeController.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="ErrorViewModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="BookingMVC.AssemblyInfo.cs" t="Include" />
+              <e p="BookingMVC.RazorAssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="Views" t="Include">
+          <e p="_ViewImports.cshtml" t="Include" />
+          <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Home" t="Include">
+            <e p="Index.cshtml" t="Include" />
+            <e p="Privacy.cshtml" t="Include" />
+          </e>
+          <e p="Shared" t="Include">
+            <e p="_Layout.cshtml" t="Include" />
+            <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+            <e p="Error.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="wwwroot" t="Include">
+          <e p="css" t="Include">
+            <e p="site.css" t="Include" />
+          </e>
+          <e p="favicon.ico" t="Include" />
+          <e p="js" t="Include">
+            <e p="site.js" t="Include" />
+          </e>
+          <e p="lib" t="Include">
+            <e p="bootstrap" t="Include">
+              <e p="dist" t="Include">
+                <e p="css" t="Include">
+                  <e p="bootstrap-grid.css" t="Include" />
+                  <e p="bootstrap-grid.css.map" t="Include" />
+                  <e p="bootstrap-grid.min.css" t="Include" />
+                  <e p="bootstrap-grid.min.css.map" t="Include" />
+                  <e p="bootstrap-reboot.css" t="Include" />
+                  <e p="bootstrap-reboot.css.map" t="Include" />
+                  <e p="bootstrap-reboot.min.css" t="Include" />
+                  <e p="bootstrap-reboot.min.css.map" t="Include" />
+                  <e p="bootstrap.css" t="Include" />
+                  <e p="bootstrap.css.map" t="Include" />
+                  <e p="bootstrap.min.css" t="Include" />
+                  <e p="bootstrap.min.css.map" t="Include" />
+                </e>
+                <e p="js" t="Include">
+                  <e p="bootstrap.bundle.js" t="Include" />
+                  <e p="bootstrap.bundle.js.map" t="Include" />
+                  <e p="bootstrap.bundle.min.js" t="Include" />
+                  <e p="bootstrap.bundle.min.js.map" t="Include" />
+                  <e p="bootstrap.js" t="Include" />
+                  <e p="bootstrap.js.map" t="Include" />
+                  <e p="bootstrap.min.js" t="Include" />
+                  <e p="bootstrap.min.js.map" t="Include" />
+                </e>
+              </e>
+              <e p="LICENSE" t="Include" />
+            </e>
+            <e p="jquery" t="Include">
+              <e p="dist" t="Include">
+                <e p="jquery.js" t="Include" />
+                <e p="jquery.min.js" t="Include" />
+                <e p="jquery.min.map" t="Include" />
+              </e>
+              <e p="LICENSE.txt" t="Include" />
+            </e>
+            <e p="jquery-validation" t="Include">
+              <e p="dist" t="Include">
+                <e p="additional-methods.js" t="Include" />
+                <e p="additional-methods.min.js" t="Include" />
+                <e p="jquery.validate.js" t="Include" />
+                <e p="jquery.validate.min.js" t="Include" />
+              </e>
+              <e p="LICENSE.md" t="Include" />
+            </e>
+            <e p="jquery-validation-unobtrusive" t="Include">
+              <e p="jquery.validate.unobtrusive.js" t="Include" />
+              <e p="jquery.validate.unobtrusive.min.js" t="Include" />
+              <e p="LICENSE.txt" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
