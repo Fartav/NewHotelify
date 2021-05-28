@@ -1,45 +1,33 @@
 ﻿using System;
 using System.Linq;
 using System.Data;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+
 //using Rubik_SDK;
 
 namespace Booking.Models
 {
     public class DataContext : DbContext
     {
-
-        //--Old code
-        //public DataContext() : base(WebConfigurationManager.ConnectionStrings["RubikCMSEntities"].ConnectionString) { }
-
-        //--New code by Reza.Barza (to make use from main encrypted CS)
-        //static string connectionString = ConnectionEncryption.Decrypt(GlobalDef.ConnectionString);
+        #region Previous constructors
         //public DataContext() : base(connectionString) { }
-
-        //--New code by Reza.Barza @201908261001 (to make use from main encrypted CS)
-        //public DataContext() : base(GlobalDef.ConnectionStringDesecure) { }
 
         // Temporary hardcode connection string
         // TODO: Pass the connection string securly
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer(
-            //    @"Server=localhost;Database=booking;Trusted_Connection=True;",
-            //    x => x.UseNetTopologySuite());
-            optionsBuilder.UseSqlServer(
-                @"Server=db;Database=AppDbContext;User=sa;Password=<YourStrong@Passw0rd>;",
-                x => x.UseNetTopologySuite());
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    //optionsBuilder.UseSqlServer(
+        //    //    @"Server=localhost;Database=booking;Trusted_Connection=True;",
+        //    //    x => x.UseNetTopologySuite());
+
+        //    optionsBuilder.UseSqlServer(
+        //        @"Server=db;Database=AppDbContext;User=sa;Password=<YourStrong@Passw0rd>;",
+        //        x => x.UseNetTopologySuite());
+        //}
 
         //-- Commented by Reza.Barza @201908171205PM (To handle possible errors in future)
         // Initialize with connectino string
-        public DataContext()
-        {
-            
-        }
-
-        // TODO: Set connection string through DataContet parameter
-
         // Comented by Sharif @201910301400
         // Temporary disable extra configurations to migrate to dotnet core
         // Make sure database naming is convinient
@@ -47,6 +35,12 @@ namespace Booking.Models
         //{
         //    modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         //}
+        #endregion
+
+        //
+        public DataContext(DbContextOptions<DataContext> options)
+            : base(options)
+        { }
 
         public DbSet<Host> Hosts { get; set; }
         public DbSet<Event> Events { get; set; }
@@ -93,6 +87,7 @@ namespace Booking.Models
                         break;
                 }
             }
+
             // Override hard delete with soft delete
             foreach (var e in selectedEntityList)
             {
@@ -102,6 +97,7 @@ namespace Booking.Models
                     e.State = EntityState.Modified;
                 }
             }
+
             return base.SaveChanges();
         }
     }

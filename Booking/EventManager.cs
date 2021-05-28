@@ -10,7 +10,12 @@ namespace Booking
 {
     public class EventManager
     {
-        private DataContext db;
+        private DataContext _db;
+
+        public EventManager(DataContext db)
+        {
+            _db = db;
+        }
 
         #region CRUD
         #region Create
@@ -19,13 +24,17 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.Hosts.Attach(newEvent.EventHost);
-                    db.Events.Add(newEvent);
-                    db.SaveChanges();
-                    return Result.Success;
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Hosts.Attach(newEvent.EventHost);
+                //    db.Events.Add(newEvent);
+                //    db.SaveChanges();
+                //    return Result.Success;
+                //}
+                _db.Hosts.Attach(newEvent.EventHost);
+                _db.Events.Add(newEvent);
+                _db.SaveChanges();
+                return Result.Success;
             }
             catch (Exception ex)
             {
@@ -61,12 +70,15 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.Entry(newEvent).State = EntityState.Modified;
-                    db.Hosts.Attach(newEvent.EventHost);
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Entry(newEvent).State = EntityState.Modified;
+                //    db.Hosts.Attach(newEvent.EventHost);
+                //    db.SaveChanges();
+                //}
+                _db.Entry(newEvent).State = EntityState.Modified;
+                _db.Hosts.Attach(newEvent.EventHost);
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -104,12 +116,15 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.Events.Attach(oldEvent);
-                    oldEvent.IsDeleted = true;
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Events.Attach(oldEvent);
+                //    oldEvent.IsDeleted = true;
+                //    db.SaveChanges();
+                //}
+                _db.Events.Attach(oldEvent);
+                oldEvent.IsDeleted = true;
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -123,10 +138,11 @@ namespace Booking
 
         public Result DeleteEvent(int id)
         {
-            using (db = new DataContext())
-            {
-                return DeleteEvent(db.Events.Find(id));
-            }
+            //using (db = new DataContext())
+            //{
+            //    return DeleteEvent(db.Events.Find(id));
+            //}
+            return DeleteEvent(_db.Events.Find(id));
         }
         #endregion
         #endregion
@@ -135,10 +151,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.Events.Include(e => e.EventHost).Where(e => e.Id == id).FirstOrDefault();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.Events.Include(e => e.EventHost).Where(e => e.Id == id).FirstOrDefault();
+                //}
+                return _db.Events.Include(e => e.EventHost).Where(e => e.Id == id).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -153,10 +170,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.Events.Include(e => e.EventHost).Where(e => e.IsDeleted == false && e.EventHost.RegionId == regionID).ToList<Event>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.Events.Include(e => e.EventHost).Where(e => e.IsDeleted == false && e.EventHost.RegionId == regionID).ToList<Event>();
+                //}
+                return _db.Events.Include(e => e.EventHost).Where(e => e.IsDeleted == false && e.EventHost.RegionId == regionID).ToList<Event>();
             }
             catch (Exception ex)
             {
@@ -171,13 +189,17 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.Events.Include(e => e.EventHost).AsEnumerable()
-                        .Where(e => e.IsDeleted == false 
-                            && e.EventHost.RegionId == regionID 
-                            && GetAvailableDates(e.Id).Count > 0).ToList<Event>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.Events.Include(e => e.EventHost).AsEnumerable()
+                //        .Where(e => e.IsDeleted == false 
+                //            && e.EventHost.RegionId == regionID 
+                //            && GetAvailableDates(e.Id).Count > 0).ToList<Event>();
+                //}
+                return _db.Events.Include(e => e.EventHost).AsEnumerable()
+                    .Where(e => e.IsDeleted == false
+                        && e.EventHost.RegionId == regionID
+                        && GetAvailableDates(e.Id).Count > 0).ToList<Event>();
             }
             catch (Exception ex)
             {
@@ -192,10 +214,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.ClosedDates.Include(c => c.Event).Where(c => c.Event.Id == id && c.IsDeleted == false).ToList<ClosedDates>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.ClosedDates.Include(c => c.Event).Where(c => c.Event.Id == id && c.IsDeleted == false).ToList<ClosedDates>();
+                //}
+                return _db.ClosedDates.Include(c => c.Event).Where(c => c.Event.Id == id && c.IsDeleted == false).ToList<ClosedDates>();
             }
             catch (Exception ex)
             {
@@ -217,12 +240,15 @@ namespace Booking
                     EndDate = endDate,
                     Type = type
                 };
-                using (db = new DataContext())
-                {
-                    db.Events.Attach(currentEvent);
-                    db.ClosedDates.Add(date);
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Events.Attach(currentEvent);
+                //    db.ClosedDates.Add(date);
+                //    db.SaveChanges();
+                //}
+                _db.Events.Attach(currentEvent);
+                _db.ClosedDates.Add(date);
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -236,25 +262,32 @@ namespace Booking
 
         public Result AddClosedDates(int id, DateTime startDate, DateTime endDate, DateType type)
         {
-            using (db = new DataContext())
-            {
-                return AddClosedDates(db.Events.Find(id), startDate, endDate, type);
-            }
+            //using (db = new DataContext())
+            //{
+            //    return AddClosedDates(db.Events.Find(id), startDate, endDate, type);
+            //}
+            return AddClosedDates(_db.Events.Find(id), startDate, endDate, type);
         }
 
         public Result RemoveClosedDate()
         {
             try
             {
-                using (db = new DataContext())
+                //using (db = new DataContext())
+                //{
+                //    List<ClosedDates> dates = db.ClosedDates.ToList<ClosedDates>();
+                //    foreach (ClosedDates date in dates)
+                //    {
+                //        db.ClosedDates.Remove(date);
+                //    }
+                //    db.SaveChanges();
+                //}
+                List<ClosedDates> dates = _db.ClosedDates.ToList<ClosedDates>();
+                foreach (ClosedDates date in dates)
                 {
-                    List<ClosedDates> dates = db.ClosedDates.ToList<ClosedDates>();
-                    foreach (ClosedDates date in dates)
-                    {
-                        db.ClosedDates.Remove(date);
-                    }
-                    db.SaveChanges();
+                    _db.ClosedDates.Remove(date);
                 }
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -270,12 +303,15 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    ClosedDates date = db.ClosedDates.Find(id);
-                    db.ClosedDates.Remove(date);
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    ClosedDates date = db.ClosedDates.Find(id);
+                //    db.ClosedDates.Remove(date);
+                //    db.SaveChanges();
+                //}
+                ClosedDates date = _db.ClosedDates.Find(id);
+                _db.ClosedDates.Remove(date);
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -291,10 +327,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Event.Id == eventId && ad.IsDeleted == false).ToList<AvailableDates>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Event.Id == eventId && ad.IsDeleted == false).ToList<AvailableDates>();
+                //}
+                return _db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Event.Id == eventId && ad.IsDeleted == false).ToList<AvailableDates>();
             }
             catch (Exception ex)
             {
@@ -308,10 +345,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Event.Id == eventId && ad.IsDeleted == false).ToList<AvailableDates>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Event.Id == eventId && ad.IsDeleted == false).ToList<AvailableDates>();
+                //}
+                return _db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Event.Id == eventId && ad.IsDeleted == false).ToList<AvailableDates>();
             }
             catch (Exception ex)
             {
@@ -326,10 +364,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Id == id).FirstOrDefault();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Id == id).FirstOrDefault();
+                //}
+                return _db.AvailableDates.Include(ad => ad.Event).Where(ad => ad.Id == id).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -344,10 +383,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.AvailableDates.Where(ad => ad.Id == id).FirstOrDefault();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.AvailableDates.Where(ad => ad.Id == id).FirstOrDefault();
+                //}
+                return _db.AvailableDates.Where(ad => ad.Id == id).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -361,14 +401,19 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.Events.Attach(date.Event);
-                    if (date.ReserveDateStart.Hour < date.Event.StartTime || date.ReserveDateEnd.Hour > date.Event.EndTime)
-                        return Result.Halt;
-                    db.AvailableDates.Add(date);
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Events.Attach(date.Event);
+                //    if (date.ReserveDateStart.Hour < date.Event.StartTime || date.ReserveDateEnd.Hour > date.Event.EndTime)
+                //        return Result.Halt;
+                //    db.AvailableDates.Add(date);
+                //    db.SaveChanges();
+                //}
+                _db.Events.Attach(date.Event);
+                if (date.ReserveDateStart.Hour < date.Event.StartTime || date.ReserveDateEnd.Hour > date.Event.EndTime)
+                    return Result.Halt;
+                _db.AvailableDates.Add(date);
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -412,12 +457,20 @@ namespace Booking
             Result result = Result.Failure;
             try
             {
-                using (db = new DataContext())
+                //using (db = new DataContext())
+                //{
+                //    db.AvailableDates.Attach(availableDates);
+                //    db.AvailableDates.Remove(availableDates);
+                //    if (db.SaveChanges() > 0)
+                //    {
+                //        result = Result.Success;
+                //    }
+                //}
+                _db.AvailableDates.Attach(availableDates);
+                _db.AvailableDates.Remove(availableDates);
+                if (_db.SaveChanges() > 0)
                 {
-                    db.AvailableDates.Attach(availableDates);
-                    db.AvailableDates.Remove(availableDates);
-                    if (db.SaveChanges() > 0)
-                        result = Result.Success;
+                    result = Result.Success;
                 }
             }
             catch (Exception ex)
@@ -455,24 +508,40 @@ namespace Booking
             int remainedCapacity = date.Event.Capacity;
             try
             {
-                using (db = new DataContext())
-                {
-                    var selectedAvailableDate = db.AvailableDates.Where(x => x.ReserveDateStart == date.ReserveDateStart && x.ReserveDateEnd == date.ReserveDateEnd && x.Event.Id == date.Event.Id).FirstOrDefault();
+                //using (db = new DataContext())
+                //{
+                //    var selectedAvailableDate = db.AvailableDates.Where(x => x.ReserveDateStart == date.ReserveDateStart && x.ReserveDateEnd == date.ReserveDateEnd && x.Event.Id == date.Event.Id).FirstOrDefault();
 
-                    var joinEventWithReserves = from t1 in db.Events
-                                                join t2 in db.ReservedDates on t1.Id equals t2.Event.Id
-                                                where t2.ReserveDateStart >= reserveDateStart && t2.ReserveDateEnd <= reserveDateEnd
-                                                    && t1.IsDeleted == false && t2.IsDeleted == false && t1.Id == selectedAvailableDate.Event.Id
-                                                    && t2.IsCanceled == 0 
-                                                select new
-                                                {
-                                                    events = t1,
-                                                    reservedDate = t2
-                                                };
-                    if (joinEventWithReserves != null && joinEventWithReserves.Count() > 0)
-                        if (joinEventWithReserves.FirstOrDefault().events != null && joinEventWithReserves.FirstOrDefault().reservedDate != null)
-                            remainedCapacity = joinEventWithReserves.FirstOrDefault().events.Capacity - (joinEventWithReserves.Sum(r => (int?)r.reservedDate.Count) ?? 0);
-                }
+                //    var joinEventWithReserves = from t1 in db.Events
+                //                                join t2 in db.ReservedDates on t1.Id equals t2.Event.Id
+                //                                where t2.ReserveDateStart >= reserveDateStart && t2.ReserveDateEnd <= reserveDateEnd
+                //                                    && t1.IsDeleted == false && t2.IsDeleted == false && t1.Id == selectedAvailableDate.Event.Id
+                //                                    && t2.IsCanceled == 0 
+                //                                select new
+                //                                {
+                //                                    events = t1,
+                //                                    reservedDate = t2
+                //                                };
+                //    if (joinEventWithReserves != null && joinEventWithReserves.Count() > 0)
+                //        if (joinEventWithReserves.FirstOrDefault().events != null && joinEventWithReserves.FirstOrDefault().reservedDate != null)
+                //            remainedCapacity = joinEventWithReserves.FirstOrDefault().events.Capacity - (joinEventWithReserves.Sum(r => (int?)r.reservedDate.Count) ?? 0);
+                //}
+                var selectedAvailableDate = _db.AvailableDates.Where(x => x.ReserveDateStart == date.ReserveDateStart && x.ReserveDateEnd == date.ReserveDateEnd && x.Event.Id == date.Event.Id).FirstOrDefault();
+
+                var joinEventWithReserves = from t1 in _db.Events
+                                            join t2 in _db.ReservedDates on t1.Id equals t2.Event.Id
+                                            where t2.ReserveDateStart >= reserveDateStart && t2.ReserveDateEnd <= reserveDateEnd
+                                                && t1.IsDeleted == false && t2.IsDeleted == false && t1.Id == selectedAvailableDate.Event.Id
+                                                && t2.IsCanceled == 0
+                                            select new
+                                            {
+                                                events = t1,
+                                                reservedDate = t2
+                                            };
+                if (joinEventWithReserves != null && joinEventWithReserves.Count() > 0)
+                    if (joinEventWithReserves.FirstOrDefault().events != null && joinEventWithReserves.FirstOrDefault().reservedDate != null)
+                        remainedCapacity = joinEventWithReserves.FirstOrDefault().events.Capacity - (joinEventWithReserves.Sum(r => (int?)r.reservedDate.Count) ?? 0);
+
             }
             catch (Exception ex)
             {
@@ -488,25 +557,39 @@ namespace Booking
             AvailableDates availableDates = null;
             try
             {
-                using (db = new DataContext())
-                {
-
-                    var joinEventWithReservesAndDates = from t1 in db.Events
-                                                join t2 in db.ReservedDates on t1.Id equals t2.Event.Id
-                                                join t3 in db.AvailableDates on t1.Id equals t3.Event.Id
-                                                where t2.Id == reservedDate.Id
-                                                    && t2.ReserveDateStart.Hour == t3.ReserveDateStart.Hour && t2.ReserveDateStart.Minute == t3.ReserveDateStart.Minute
-                                                    && t2.ReserveDateEnd.Hour == t3.ReserveDateEnd.Hour && t2.ReserveDateEnd.Minute == t3.ReserveDateEnd.Minute
-                                                    && t1.IsDeleted == false && t2.IsDeleted == false && t3.IsDeleted == false // && t2.IsCanceled == 0
-                                                select new
-                                                {
-                                                    events = t1,
-                                                    reservedDate = t2,
-                                                    availableDate = t3,
-                                                };
-                    if (joinEventWithReservesAndDates != null && joinEventWithReservesAndDates.Count() > 0)
-                        availableDates = joinEventWithReservesAndDates.FirstOrDefault().availableDate;
-                }
+                //using (db = new DataContext())
+                //{
+                //    var joinEventWithReservesAndDates = from t1 in db.Events
+                //                                join t2 in db.ReservedDates on t1.Id equals t2.Event.Id
+                //                                join t3 in db.AvailableDates on t1.Id equals t3.Event.Id
+                //                                where t2.Id == reservedDate.Id
+                //                                    && t2.ReserveDateStart.Hour == t3.ReserveDateStart.Hour && t2.ReserveDateStart.Minute == t3.ReserveDateStart.Minute
+                //                                    && t2.ReserveDateEnd.Hour == t3.ReserveDateEnd.Hour && t2.ReserveDateEnd.Minute == t3.ReserveDateEnd.Minute
+                //                                    && t1.IsDeleted == false && t2.IsDeleted == false && t3.IsDeleted == false // && t2.IsCanceled == 0
+                //                                select new
+                //                                {
+                //                                    events = t1,
+                //                                    reservedDate = t2,
+                //                                    availableDate = t3,
+                //                                };
+                //    if (joinEventWithReservesAndDates != null && joinEventWithReservesAndDates.Count() > 0)
+                //        availableDates = joinEventWithReservesAndDates.FirstOrDefault().availableDate;
+                //}
+                var joinEventWithReservesAndDates = from t1 in _db.Events
+                                                    join t2 in _db.ReservedDates on t1.Id equals t2.Event.Id
+                                                    join t3 in _db.AvailableDates on t1.Id equals t3.Event.Id
+                                                    where t2.Id == reservedDate.Id
+                                                        && t2.ReserveDateStart.Hour == t3.ReserveDateStart.Hour && t2.ReserveDateStart.Minute == t3.ReserveDateStart.Minute
+                                                        && t2.ReserveDateEnd.Hour == t3.ReserveDateEnd.Hour && t2.ReserveDateEnd.Minute == t3.ReserveDateEnd.Minute
+                                                        && t1.IsDeleted == false && t2.IsDeleted == false && t3.IsDeleted == false // && t2.IsCanceled == 0
+                                                    select new
+                                                    {
+                                                        events = t1,
+                                                        reservedDate = t2,
+                                                        availableDate = t3,
+                                                    };
+                if (joinEventWithReservesAndDates != null && joinEventWithReservesAndDates.Count() > 0)
+                    availableDates = joinEventWithReservesAndDates.FirstOrDefault().availableDate;
             }
             catch (Exception ex)
             {
@@ -515,74 +598,6 @@ namespace Booking
                 //        "<br> Booking-EventManager-GetRemainedCapacityByAvailableDater-WholeException: " + ex.ToString());
             }
             return availableDates;
-        }
-
-        public static int GetTimingCase(int eventID)
-        {
-            int timeCase = 0;
-            Event reserveEvent = new EventManager().GetEvent(eventID);
-            try
-            {
-                if (reserveEvent.Type == EventType.Auto && reserveEvent.WorkingShifts <= 1 && reserveEvent.WorkingTimes <= 1)
-                    timeCase = 1;
-                else if (reserveEvent.Type == EventType.Auto && reserveEvent.WorkingShifts > 1 && reserveEvent.WorkingTimes <= 1)
-                    timeCase = 2;
-                else if (reserveEvent.Type == EventType.Auto && reserveEvent.WorkingShifts > 1 && reserveEvent.WorkingTimes > 1)
-                    timeCase = 3;
-                else if (reserveEvent.Type == EventType.Manual)
-                    timeCase = 4;
-                else if (reserveEvent.Type != EventType.Custom)
-                    timeCase = 5;
-            }
-            catch (Exception ex)
-            {
-                timeCase = -1;
-                //General.WriteInLogFile("Booking-EventManager-TimingCase-Exception: " + ex.Message +
-                //        "<br> Booking-EventManager-TimingCase-Exception: " + ex.ToString());
-            }
-            return timeCase;
-        }
-
-        public static string GetTimingCaseToPersianString(int eventID)
-        {
-            string timeCasePersianName = "اولیه";
-            try
-            {
-                switch (GetTimingCase(eventID))
-                {
-                    case -1:
-                        timeCasePersianName = "بدون نوع";
-                        break;
-                    case 0:
-                        timeCasePersianName = "اولیه";
-                        break;
-                    case 1:
-                        timeCasePersianName = "روزانه";
-                        break;
-                    case 2:
-                        timeCasePersianName = "شیفتی";
-                        break;
-                    case 3:
-                        timeCasePersianName = "ساعتی";
-                        break;
-                    case 4:
-                        timeCasePersianName = "شیفت دستی";
-                        break;
-                    case 5:
-                        timeCasePersianName = "آزاد";
-                        break;
-                    default:
-                        timeCasePersianName = "نوع دیگر";
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                timeCasePersianName = "حالت دیگر";
-                //General.WriteInLogFile("Booking-EventManager-GetTimingCaseToPersianString-Exception: " + ex.Message +
-                //        "<br> Booking-EventManage-GetTimingCaseToPersianString-WholeException: " + ex.ToString());
-            }
-            return timeCasePersianName;
         }
 
         public int CalculateCapacityForEachPieceOfTime(DateTime dateOfSelectedDay, AvailableDates dateOfHourAndMinute)
@@ -604,5 +619,75 @@ namespace Booking
             }
             return remainedCapacity;
         }
+
+        #region Rubik related functions
+        //public static int GetTimingCase(int eventID)
+        //{
+        //    int timeCase = 0;
+        //    Event reserveEvent = GetEvent(eventID);
+        //    try
+        //    {
+        //        if (reserveEvent.Type == EventType.Auto && reserveEvent.WorkingShifts <= 1 && reserveEvent.WorkingTimes <= 1)
+        //            timeCase = 1;
+        //        else if (reserveEvent.Type == EventType.Auto && reserveEvent.WorkingShifts > 1 && reserveEvent.WorkingTimes <= 1)
+        //            timeCase = 2;
+        //        else if (reserveEvent.Type == EventType.Auto && reserveEvent.WorkingShifts > 1 && reserveEvent.WorkingTimes > 1)
+        //            timeCase = 3;
+        //        else if (reserveEvent.Type == EventType.Manual)
+        //            timeCase = 4;
+        //        else if (reserveEvent.Type != EventType.Custom)
+        //            timeCase = 5;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        timeCase = -1;
+        //        //General.WriteInLogFile("Booking-EventManager-TimingCase-Exception: " + ex.Message +
+        //        //        "<br> Booking-EventManager-TimingCase-Exception: " + ex.ToString());
+        //    }
+        //    return timeCase;
+        //}
+
+        //public static string GetTimingCaseToPersianString(int eventID)
+        //{
+        //    string timeCasePersianName = "اولیه";
+        //    try
+        //    {
+        //        switch (GetTimingCase(eventID))
+        //        {
+        //            case -1:
+        //                timeCasePersianName = "بدون نوع";
+        //                break;
+        //            case 0:
+        //                timeCasePersianName = "اولیه";
+        //                break;
+        //            case 1:
+        //                timeCasePersianName = "روزانه";
+        //                break;
+        //            case 2:
+        //                timeCasePersianName = "شیفتی";
+        //                break;
+        //            case 3:
+        //                timeCasePersianName = "ساعتی";
+        //                break;
+        //            case 4:
+        //                timeCasePersianName = "شیفت دستی";
+        //                break;
+        //            case 5:
+        //                timeCasePersianName = "آزاد";
+        //                break;
+        //            default:
+        //                timeCasePersianName = "نوع دیگر";
+        //                break;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        timeCasePersianName = "حالت دیگر";
+        //        //General.WriteInLogFile("Booking-EventManager-GetTimingCaseToPersianString-Exception: " + ex.Message +
+        //        //        "<br> Booking-EventManage-GetTimingCaseToPersianString-WholeException: " + ex.ToString());
+        //    }
+        //    return timeCasePersianName;
+        //}
+        #endregion
     }
 }

@@ -11,16 +11,21 @@ namespace Booking
 {
     public class HostManager
     {
-        private DataContext db;
+        private DataContext _db;
 
+        public HostManager(DataContext db)
+        {
+            _db = db;
+        }
         public Host GetHost(int id)
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.Hosts.Where(h => h.Id == id).FirstOrDefault();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.Hosts.Where(h => h.Id == id).FirstOrDefault();
+                //}
+                return _db.Hosts.Where(h => h.Id == id).FirstOrDefault();
             }
             catch(Exception ex)
             {
@@ -35,10 +40,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.Hosts.Where(h => h.IsDeleted == false).ToList<Host>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.Hosts.Where(h => h.IsDeleted == false).ToList<Host>();
+                //}
+                return _db.Hosts.Where(h => h.IsDeleted == false).ToList<Host>();
             }
             catch(Exception ex)
             {
@@ -53,10 +59,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.Hosts.Where(h => h.IsDeleted == false && h.RegionId == regionId).ToList<Host>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.Hosts.Where(h => h.IsDeleted == false && h.RegionId == regionId).ToList<Host>();
+                //}
+                return _db.Hosts.Where(h => h.IsDeleted == false && h.RegionId == regionId).ToList<Host>();
             }
             catch (Exception ex)
             {
@@ -71,11 +78,13 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.Hosts.Add(newHost);
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Hosts.Add(newHost);
+                //    db.SaveChanges();
+                //}
+                _db.Hosts.Add(newHost);
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -108,11 +117,13 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.Entry(newEvent).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Entry(newEvent).State = EntityState.Modified;
+                //    db.SaveChanges();
+                //}
+                _db.Entry(newEvent).State = EntityState.Modified;
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -147,12 +158,15 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.Hosts.Attach(oldHost);
-                    oldHost.IsDeleted = true;
-                    db.SaveChanges();
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.Hosts.Attach(oldHost);
+                //    oldHost.IsDeleted = true;
+                //    db.SaveChanges();
+                //}
+                _db.Hosts.Attach(oldHost);
+                oldHost.IsDeleted = true;
+                _db.SaveChanges();
                 return Result.Success;
             }
             catch(Exception ex)
@@ -166,10 +180,11 @@ namespace Booking
 
         public Result DeleteHost(int id)
         {
-            using (db = new DataContext())
-            {
-                return DeleteHost(db.Hosts.Find(id));
-            }
+            //using (db = new DataContext())
+            //{
+            //    return DeleteHost(db.Hosts.Find(id));
+            //}
+            return DeleteHost(_db.Hosts.Find(id));
         }
     }
 }

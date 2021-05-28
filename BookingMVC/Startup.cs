@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Booking.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +12,8 @@ namespace BookingMVC
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            //Configuration = configuration;
+            Configuration = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -25,7 +21,11 @@ namespace BookingMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>();
+            //services.AddDbContext<DataContext>();
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Production"));
+            });
             services.AddControllersWithViews();
         }
 
@@ -42,13 +42,11 @@ namespace BookingMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

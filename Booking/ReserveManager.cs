@@ -10,11 +10,12 @@ namespace Booking
 {
     public class ReserveManager
     {
-        private DataContext db;
+        private DataContext _db;
         private int minutes;// It's useless now
 
-        public ReserveManager()
+        public ReserveManager(DataContext db)
         {
+            _db = db;
             CheckForExpiredReserves();
         }
         public ReserveManager(int m = 15)
@@ -26,13 +27,17 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    //CheckForExpiredReserves();
-                    //List<ReservedDates> reserves = db.ReservedDates.Include(r => r.Event)
-                    //        .Where(r => r.IsDeleted == false && r.IsCanceled == 0).ToList<ReservedDates>();
-                    return db.ReservedDates.Include(r => r.Event).Where(r => r.IsDeleted == false).ToList<ReservedDates>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    //CheckForExpiredReserves();
+                //    //List<ReservedDates> reserves = db.ReservedDates.Include(r => r.Event)
+                //    //        .Where(r => r.IsDeleted == false && r.IsCanceled == 0).ToList<ReservedDates>();
+                //    return db.ReservedDates.Include(r => r.Event).Where(r => r.IsDeleted == false).ToList<ReservedDates>();
+                //}
+                //CheckForExpiredReserves();
+                //List<ReservedDates> reserves = db.ReservedDates.Include(r => r.Event)
+                //        .Where(r => r.IsDeleted == false && r.IsCanceled == 0).ToList<ReservedDates>();
+                return _db.ReservedDates.Include(r => r.Event).Where(r => r.IsDeleted == false).ToList<ReservedDates>();
             }
             catch (Exception ex)
             {
@@ -48,10 +53,11 @@ namespace Booking
             try
             {
                 ReservedDates result;
-                using (db = new DataContext())
-                {
-                    return db.ReservedDates.Include(r => r.Event).Where(r => r.Id == id).FirstOrDefault();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.ReservedDates.Include(r => r.Event).Where(r => r.Id == id).FirstOrDefault();
+                //}
+                return _db.ReservedDates.Include(r => r.Event).Where(r => r.Id == id).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -67,15 +73,21 @@ namespace Booking
             ReservedDates result;
             try
             {
-                using (db = new DataContext())
-                {
-                    var theReserve = GetReserve(id);
-                    DateTime d = (DateTime)theReserve.CreateDate;
-                    if (d.AddMinutes(theReserve.Event.TemporaryReserve) < DateTime.Now)
-                        result = null;
-                    else
-                        result = theReserve;
-                }
+                //using (db = new DataContext())
+                //{
+                //    var theReserve = GetReserve(id);
+                //    DateTime d = (DateTime)theReserve.CreateDate;
+                //    if (d.AddMinutes(theReserve.Event.TemporaryReserve) < DateTime.Now)
+                //        result = null;
+                //    else
+                //        result = theReserve;
+                //}
+                var theReserve = GetReserve(id);
+                DateTime d = (DateTime)theReserve.CreateDate;
+                if (d.AddMinutes(theReserve.Event.TemporaryReserve) < DateTime.Now)
+                    result = null;
+                else
+                    result = theReserve;
             }
             catch (Exception ex)
             {
@@ -92,10 +104,11 @@ namespace Booking
             try
             {
                 ReservedDates result;
-                using (db = new DataContext())
-                {
-                    return db.ReservedDates.Where(r => r.Id == id).FirstOrDefault();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.ReservedDates.Where(r => r.Id == id).FirstOrDefault();
+                //}
+                return _db.ReservedDates.Where(r => r.Id == id).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -110,10 +123,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return db.ReservedDates.Include(r => r.Event).Where(r => r.Event.Id == eventID && r.IsDeleted == false).ToList<ReservedDates>();
-                }
+                //using (db = new DataContext())
+                //{
+                //    return db.ReservedDates.Include(r => r.Event).Where(r => r.Event.Id == eventID && r.IsDeleted == false).ToList<ReservedDates>();
+                //}
+                return _db.ReservedDates.Include(r => r.Event).Where(r => r.Event.Id == eventID && r.IsDeleted == false).ToList<ReservedDates>();
             }
             catch (Exception ex)
             {
@@ -128,21 +142,33 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
+                //using (db = new DataContext())
+                //{
+                //    if (date.ReserveDateStartTicks == null)
+                //    {
+                //        date.ReserveDateStartTicks = date.ReserveDateStart.Ticks;
+                //    }
+                //    if (date.ReserveDateEndTicks == null)
+                //    {
+                //        date.ReserveDateEndTicks = date.ReserveDateEnd.Ticks;
+                //    }
+                //    db.ReservedDates.Attach(date);
+                //    db.ReservedDates.Add(date);
+                //    db.SaveChanges();
+                //    return date.Id;
+                //}
+                if (date.ReserveDateStartTicks == null)
                 {
-                    if (date.ReserveDateStartTicks == null)
-                    {
-                        date.ReserveDateStartTicks = date.ReserveDateStart.Ticks;
-                    }
-                    if (date.ReserveDateEndTicks == null)
-                    {
-                        date.ReserveDateEndTicks = date.ReserveDateEnd.Ticks;
-                    }
-                    db.ReservedDates.Attach(date);
-                    db.ReservedDates.Add(date);
-                    db.SaveChanges();
-                    return date.Id;
+                    date.ReserveDateStartTicks = date.ReserveDateStart.Ticks;
                 }
+                if (date.ReserveDateEndTicks == null)
+                {
+                    date.ReserveDateEndTicks = date.ReserveDateEnd.Ticks;
+                }
+                _db.ReservedDates.Attach(date);
+                _db.ReservedDates.Add(date);
+                _db.SaveChanges();
+                return date.Id;
             }
             catch (Exception ex)
             {
@@ -169,24 +195,30 @@ namespace Booking
 
         public Result FinalizeReserve(int id)
         {
-            using (db = new DataContext())
-            {
-                return FinalizeReserve(db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == false).FirstOrDefault());
-            }
+            //using (db = new DataContext())
+            //{
+            //    return FinalizeReserve(db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == false).FirstOrDefault());
+            //}
+            return FinalizeReserve(_db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == false).FirstOrDefault());
         }
 
         public Result FinalizeReserve(ReservedDates reserve)
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    db.ReservedDates.Attach(reserve);
-                    reserve.IsFinal = 1;
-                    reserve.IsCanceled = 0;
-                    db.SaveChanges();
-                    return Result.Success;
-                }
+                //using (db = new DataContext())
+                //{
+                //    db.ReservedDates.Attach(reserve);
+                //    reserve.IsFinal = 1;
+                //    reserve.IsCanceled = 0;
+                //    db.SaveChanges();
+                //    return Result.Success;
+                //}
+                _db.ReservedDates.Attach(reserve);
+                reserve.IsFinal = 1;
+                reserve.IsCanceled = 0;
+                _db.SaveChanges();
+                return Result.Success;
             }
             catch (Exception ex)
             {
@@ -199,26 +231,29 @@ namespace Booking
 
         public Result CancelReserve(int id)
         {
-            using (db = new DataContext())
-            {
-                return CancelReserve(GetReserveOnly(id));
-            }
+            //using (db = new DataContext())
+            //{
+            //    return CancelReserve(GetReserveOnly(id));
+            //}
+            return CancelReserve(GetReserveOnly(id));
         }
 
         public Result CancelDeletedReserve(int id)
         {
-            using (db = new DataContext())
-            {
-                return CancelReserve(db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == true).FirstOrDefault());
-            }
+            //using (db = new DataContext())
+            //{
+            //    return CancelReserve(db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == true).FirstOrDefault());
+            //}
+            return CancelReserve(_db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == true).FirstOrDefault());
         }
 
         public Result CancelNotDeletedReserve(int id)
         {
-            using (db = new DataContext())
-            {
-                return CancelReserve(db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == false).FirstOrDefault());
-            }
+            //using (db = new DataContext())
+            //{
+            //    return CancelReserve(db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == false).FirstOrDefault());
+            //}
+            return CancelReserve(_db.ReservedDates.Where(r => r.Id == id && r.IsDeleted == false).FirstOrDefault());
         }
 
         public Result CancelReserve(ReservedDates reserve)
@@ -226,19 +261,34 @@ namespace Booking
             Result result = Result.Failure;
             try
             {
-                using (db = new DataContext())
+                //using (db = new DataContext())
+                //{
+                //    //db.ReservedDates.Attach(reserve);
+                //    //ReservedDates reserveToCancel = db.ReservedDates.Find(reserve.Id);
+                //    db.ReservedDates.Attach(reserve);
+                //    reserve.IsFinal = 0;
+                //    reserve.IsCanceled = 1;
+                //    //db.SaveChanges();
+                //    //return Result.Success;
+                //    if (db.SaveChanges() > 0)
+                //        result = Result.Success;
+                //    if (db.ChangeTracker.HasChanges() == false)
+                //        result = Result.Success;
+                //}
+                //db.ReservedDates.Attach(reserve);
+                //ReservedDates reserveToCancel = db.ReservedDates.Find(reserve.Id);
+                _db.ReservedDates.Attach(reserve);
+                reserve.IsFinal = 0;
+                reserve.IsCanceled = 1;
+                //db.SaveChanges();
+                //return Result.Success;
+                if (_db.SaveChanges() > 0)
                 {
-                    //db.ReservedDates.Attach(reserve);
-                    //ReservedDates reserveToCancel = db.ReservedDates.Find(reserve.Id);
-                    db.ReservedDates.Attach(reserve);
-                    reserve.IsFinal = 0;
-                    reserve.IsCanceled = 1;
-                    //db.SaveChanges();
-                    //return Result.Success;
-                    if (db.SaveChanges() > 0)
-                        result = Result.Success;
-                    if (db.ChangeTracker.HasChanges() == false)
-                        result = Result.Success;
+                    result = Result.Success;
+                }
+                if (_db.ChangeTracker.HasChanges() == false)
+                {
+                    result = Result.Success;
                 }
             }
             catch (Exception ex)
@@ -254,15 +304,21 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    ReservedDates reserveToChange = db.ReservedDates.Find(reserve.Id);
-                    reserveToChange.IsFinal = 0;
-                    reserveToChange.IsCanceled = 1;
-                    reserveToChange.IsDeleted = true;
-                    db.SaveChanges();
-                    return Result.Success;
-                }
+                //using (db = new DataContext())
+                //{
+                //    ReservedDates reserveToChange = db.ReservedDates.Find(reserve.Id);
+                //    reserveToChange.IsFinal = 0;
+                //    reserveToChange.IsCanceled = 1;
+                //    reserveToChange.IsDeleted = true;
+                //    db.SaveChanges();
+                //    return Result.Success;
+                //}
+                ReservedDates reserveToChange = _db.ReservedDates.Find(reserve.Id);
+                reserveToChange.IsFinal = 0;
+                reserveToChange.IsCanceled = 1;
+                reserveToChange.IsDeleted = true;
+                _db.SaveChanges();
+                return Result.Success;
             }
             catch (Exception ex)
             {
@@ -298,27 +354,28 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    //List<ReservedDates> reserves = GetReserves();
-                    //foreach (ReservedDates r in reserves)
-                    //{
-                    //    DateTime d = (DateTime)r.CreateDate;
-                    //    if(d.AddMinutes(minutes) < DateTime.Now)
-                    //    {
-                    //        CancelReserve(r);
-                    //    }
-                    //}
-                    //db.ReservedDates.Where(x => DbFunctions.AddMinutes(x.CreateDate.Value, minutes) < DateTime.Now
-                    //        && x.IsDeleted == false && x.IsCanceled == 0 && x.IsFinal == 0).ToList().ForEach(x => x.IsCanceled = 1);
+                //using (db = new DataContext())
+                //{
+                //    //List<ReservedDates> reserves = GetReserves();
+                //    //foreach (ReservedDates r in reserves)
+                //    //{
+                //    //    DateTime d = (DateTime)r.CreateDate;
+                //    //    if(d.AddMinutes(minutes) < DateTime.Now)
+                //    //    {
+                //    //        CancelReserve(r);
+                //    //    }
+                //    //}
+                //    //db.ReservedDates.Where(x => DbFunctions.AddMinutes(x.CreateDate.Value, minutes) < DateTime.Now
+                //    //        && x.IsDeleted == false && x.IsCanceled == 0 && x.IsFinal == 0).ToList().ForEach(x => x.IsCanceled = 1);
 
-                    // Comented by Sharif @202010311430
-                    // TODO: EF currently does not support dbfunctions so this linq query must be replaced with a raw sql query
-                    //db.ReservedDates.Include(ev => ev.Event).Where(x => DbFunctions.AddMinutes(x.CreateDate.Value, x.Event.TemporaryReserve) < DateTime.Now
-                    //        && x.IsDeleted == false && x.IsCanceled == 0 && x.IsFinal == 0).ToList().ForEach(x => x.IsCanceled = 1);
-                    //db.SaveChanges();
-                    return Result.Success;
-                }
+                //    // Comented by Sharif @202010311430
+                //    // TODO: EF currently does not support dbfunctions so this linq query must be replaced with a raw sql query
+                //    //db.ReservedDates.Include(ev => ev.Event).Where(x => DbFunctions.AddMinutes(x.CreateDate.Value, x.Event.TemporaryReserve) < DateTime.Now
+                //    //        && x.IsDeleted == false && x.IsCanceled == 0 && x.IsFinal == 0).ToList().ForEach(x => x.IsCanceled = 1);
+                //    //db.SaveChanges();
+                //    return Result.Success;
+                //}
+                return Result.Success;
             }
             catch (Exception ex)
             {
@@ -333,17 +390,25 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
+                //using (db = new DataContext())
+                //{
+                //    DateTime d = (DateTime)reserve.CreateDate;
+                //    //if (d.AddMinutes(minutes) < DateTime.Now)
+                //    if (d.AddMinutes(reserve.Event.TemporaryReserve) < DateTime.Now)
+                //    {
+                //        CancelReserve(reserve);
+                //        return Result.Halt;
+                //    }
+                //    return Result.Success;
+                //}
+                DateTime d = (DateTime)reserve.CreateDate;
+                //if (d.AddMinutes(minutes) < DateTime.Now)
+                if (d.AddMinutes(reserve.Event.TemporaryReserve) < DateTime.Now)
                 {
-                    DateTime d = (DateTime)reserve.CreateDate;
-                    //if (d.AddMinutes(minutes) < DateTime.Now)
-                    if (d.AddMinutes(reserve.Event.TemporaryReserve) < DateTime.Now)
-                    {
-                        CancelReserve(reserve);
-                        return Result.Halt;
-                    }
-                    return Result.Success;
+                    CancelReserve(reserve);
+                    return Result.Halt;
                 }
+                return Result.Success;
             }
             catch (Exception ex)
             {
@@ -358,10 +423,11 @@ namespace Booking
         {
             try
             {
-                using (db = new DataContext())
-                {
-                    return CheckForExpiredReserve(db.ReservedDates.Include(ev => ev.Event).Where(r => r.Id == id && r.IsCanceled == 0 && r.IsFinal==0).FirstOrDefault());
-                }
+                //using (db = new DataContext())
+                //{
+                //    return CheckForExpiredReserve(db.ReservedDates.Include(ev => ev.Event).Where(r => r.Id == id && r.IsCanceled == 0 && r.IsFinal==0).FirstOrDefault());
+                //}
+                return CheckForExpiredReserve(_db.ReservedDates.Include(ev => ev.Event).Where(r => r.Id == id && r.IsCanceled == 0 && r.IsFinal == 0).FirstOrDefault());
             }
             catch (Exception ex)
             {
@@ -382,14 +448,24 @@ namespace Booking
             Result result = Result.Failure;
             try
             {
-                using (db = new DataContext())
+                //using (db = new DataContext())
+                //{
+                //    db.ReservedDates.Attach(reserve);
+                //    db.ReservedDates.Remove(reserve);
+                //    if (db.SaveChanges() > 0)
+                //        result = Result.Success;
+                //    if (db.ChangeTracker.HasChanges() == false)
+                //        result = Result.Success;
+                //}
+                _db.ReservedDates.Attach(reserve);
+                _db.ReservedDates.Remove(reserve);
+                if (_db.SaveChanges() > 0)
                 {
-                    db.ReservedDates.Attach(reserve);
-                    db.ReservedDates.Remove(reserve);
-                    if (db.SaveChanges() > 0)
-                        result = Result.Success;
-                    if (db.ChangeTracker.HasChanges() == false)
-                        result = Result.Success;
+                    result = Result.Success;
+                }
+                if (_db.ChangeTracker.HasChanges() == false)
+                {
+                    result = Result.Success;
                 }
             }
             catch (Exception ex)
